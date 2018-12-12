@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<malloc.h>
+
+#define CAP 5
+typedef struct cq{
+int key;
+}element;
+
+int f,r,capacity=CAP;
+void queuefull();
+element *q;
+
+void addq(element item)
+{
+r=(r+1)%capacity;
+if(r==f)
+queuefull();
+else
+*(q+r)=item;
+}
+
+void copy(element *s,element *e,element *p)
+{
+int i=0;
+while(s<=e)
+{
+*(p+i)=*s;
+s++;
+i++;
+}
+}
+
+void queuefull()
+{
+int start;
+start=(f+1)%capacity;
+
+element *nq;
+nq=(element *)malloc(sizeof(element)*2*capacity);
+if(start<2)
+{
+copy(q+start,q+start+capacity-1,nq);
+}
+else
+{
+copy(q+start,q+capacity,nq);
+copy(q,q+r,nq+capacity-start+1);
+}
+q=nq;
+}
+
+
+void display()
+{
+int i;
+for(i=(f+1)%capacity;i!=(r+1)%capacity;i=(i+1)%capacity){
+printf("->%d\n",(q+i)->key);
+}
+}
+
+int main(){
+f=r=-1;
+int n;
+q=(element *)malloc(sizeof(element)*5);
+int i=0,ch;
+printf("Enter : 1.Insert\n2.Delete\n3.Display\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+printf("Enter the element to be inserted : ");
+scanf("%d",&n);
+element temp;
+temp.key=n;
+addq(temp);
+i++;
+
+display();
+return 0;
+}

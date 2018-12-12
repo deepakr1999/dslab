@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<malloc.h>
+
+#define CAP 10
+typedef struct cq{
+int key;
+}element;
+
+int f,r,capacity=CAP;
+void queuefull();
+element q[CAP];
+
+void addq(element item)
+{
+r=(r+1)%capacity;
+if(r==f)
+queuefull();
+else
+q[r]=item;
+}
+
+void copy(element *s,element *e,element *p)
+{
+int i=0;
+while(s<=e)
+{
+*(p+i)=*s;
+s++;
+i++;
+}
+}
+
+void queuefull()
+{
+int start;
+start=(f+1)%capacity;
+
+element *nq;
+nq=(element *)malloc(sizeof(element)*2*capacity);
+if(start<2)
+{
+copy(q+start,q+start+capacity-1,nq);
+}
+else
+{
+copy(q+start,q+capacity,nq);
+copy(q,q+r,nq+capacity-start+1);
+}
+}
+
+void main(){
+f=r-1;
+int n;
+printf("Enter the element to be inserted : ");
+scanf("%d",&n);
+element temp;
+temp.key=n;
+addq(temp);
+}

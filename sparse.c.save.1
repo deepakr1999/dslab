@@ -1,0 +1,16 @@
+#define max 100
+#include<stdio.h>
+
+typedef struct{
+int col,row,val;
+} sparse;
+sparse a[max]; sparse b[max]; void main(){ int i,n; printf("----SPARSE MATRIX---\n"); printf("Enter the number of elements :"); scanf("%d",&n); 
+printf("--Enter the elements--\n"); a[0].row=0; a[0].col=0; a[0].val=0; for(i=1;i<n+1;i++) { printf("ROW | COL | VAL \n"); 
+scanf("%d%d%d",&a[i].row,&a[i].col,&a[i].val); a[0].row++; a[0].col++;
+}
+printf("Matrix value :\n");
+for(i=0;i<n+1;i++){
+printf("ROW :%d   COL :%d   VAL :%d\n",a[i].row,a[i].col,a[i].val);
+}
+}
+
